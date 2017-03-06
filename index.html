@@ -15,12 +15,7 @@
         ($body).append('<div class="home"></div>');
         ($body).append('<div class="user-timeline"></div>');
 
-        var index = streams.home.length - 1;
-        while(index >= 0){
-          var tweet = streams.home[index];
-          $(renderTweet(tweet)).appendTo('.home');
-          index -= 1;
-        }
+        renderHome();
 
         $('a').on('click', function(event) {
           event.preventDefault();
