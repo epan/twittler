@@ -27,10 +27,20 @@
         });
 
         $('.home').on('click', 'a', renderUserTimeline);
-        $('.user-timeline').on('click', '.back', function() {
+        $('.user-timeline').on('click', 'a', renderHome);
+
+        function renderHome() {
+          $('.home').html('');
           $('.user-timeline').css('display', 'none');
           $('.home').css('display', 'block');
-        });
+          var index = streams.home.length - 1;
+          var tweet;
+          while (index >= 0) {
+            tweet = streams.home[index];
+            $(renderTweet(tweet)).appendTo('.home');
+            index -= 1;
+          }
+        }
 
         function renderUserTimeline() {
           $('.user-timeline').html('');
@@ -38,8 +48,9 @@
           $('.user-timeline').css('display', 'block');
           var username = $(this).closest('.tweet').data('username');
           var index = streams.users[username].length - 1;
+          var tweet;
           while (index >= 0) {
-            var tweet = streams.users[username][index];
+            tweet = streams.users[username][index];
             $(renderTweet(tweet)).appendTo('.user-timeline');
             index -= 1;
           }
