@@ -29,8 +29,8 @@
         // Helper functions
         function renderHome() {
           $('.home').html('');
-          $('.user-timeline').css('display', 'none');
-          $('.home').css('display', 'block');
+          $('.user-timeline').fadeOut();
+          $('.home').fadeIn();
           var index = streams.home.length - 1;
           var tweet;
           while (index >= 0) {
@@ -42,8 +42,8 @@
 
         function renderUserTimeline() {
           $('.user-timeline').html('');
-          $('.home').css('display', 'none');
-          $('.user-timeline').css('display', 'block');
+          $('.home').fadeOut();
+          $('.user-timeline').fadeIn();
           var username = $(this).closest('.tweet').data('username');
           var index = streams.users[username].length - 1;
           var tweet;
