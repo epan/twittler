@@ -5,43 +5,6 @@
     <script src="data_generator.js"></script>
   </head>
   <body>
-    <div class="home">
-      <div class="tweet">
-        <div class="tweet-header">
-          <a href="#">@mracus</a><span>Sun Mar 05 2017 14:59:36 GMT-0800 (PST)</span>
-        </div>
-        <p>
-          just built an entire mind #sxsw.
-        </p>
-      </div>
-      <div class="tweet">
-        <div class="tweet-header">
-          <a href="#">@mracus</a><span>Sun Mar 05 2017 14:59:36 GMT-0800 (PST)</span>
-        </div>
-        <p>
-          just built an entire mind #sxsw.
-        </p>
-      </div>
-    </div>
-    <div class="user-timeline">
-      <a href="#">Back to home</a>
-      <div class="tweet">
-        <div class="tweet-header">
-          <a href="#">@mracus</a><span>Sun Mar 05 2017 14:59:36 GMT-0800 (PST)</span>
-        </div>
-        <p>
-          just built an entire mind #sxsw.
-        </p>
-      </div>
-      <div class="tweet">
-        <div class="tweet-header">
-          <a href="#">@mracus</a><span>Sun Mar 05 2017 14:59:36 GMT-0800 (PST)</span>
-        </div>
-        <p>
-          just built an entire mind #sxsw.
-        </p>
-      </div>
-    </div>
     <script>
 
       $(document).ready(function(){
@@ -59,14 +22,23 @@
           index -= 1;
         }
 
+        $('a').on('click', function(event) {
+          event.preventDefault();
+        });
+
+        $('.home').on('click', 'a', renderUserTimeline);
+        $('.user-timeline').on('click', 'a', notify);
+
         function renderUserTimeline() {
+          $('.user-timeline').html('');
           var username = $(this).closest('.tweet').data('username');
           var index = streams.users[username].length - 1;
           while (index >= 0) {
             var tweet = streams.users[username][index];
-            $(renderTweet(tweet)).prependTo($body);
+            $(renderTweet(tweet)).prependTo('.user-timeline');
             index -= 1;
           }
+          $('<a href="#" class="back">Back to home</a>').prependTo('.user-timeline');
         }
 
         function renderTweet(tweet) {
@@ -79,14 +51,10 @@
           return $tweet;
         }
 
-        $('.tweet').on('click', 'a', renderUserTimeline);
-
         function notify() {
           alert('clicked');
         }
-
       });
-
     </script>
   </body>
 </html>
