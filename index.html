@@ -55,32 +55,31 @@
         var index = streams.home.length - 1;
         while(index >= 0){
           var tweet = streams.home[index];
+          $(renderTweet(tweet)).appendTo('.home');
+          index -= 1;
+        }
 
+        function renderUserTimeline() {
+          var username = $(this).closest('.tweet').data('username');
+          var index = streams.users[username].length - 1;
+          while (index >= 0) {
+            var tweet = streams.users[username][index];
+            $(renderTweet(tweet)).prependTo($body);
+            index -= 1;
+          }
+        }
+
+        function renderTweet(tweet) {
           var $tweet = $.parseHTML('<div class="tweet" data-username="' + tweet.user + '"></div>');
           var $tweetHeader = $.parseHTML('<div class="tweet-header"><a href="#">@' + tweet.user + '</a><span>' + tweet.created_at + '</span></div>');
           var $tweetBody = $.parseHTML('<p>' + tweet.message + '</p>');
 
           $($tweetHeader).appendTo($tweet);
           $($tweetBody).appendTo($tweet);
-          $($tweet).appendTo('.home');
-
-          index -= 1;
+          return $tweet;
         }
 
-        function renderUserTimeline() {
-          console.log($(this));
-          var username = $(this).closest('div').data('username');
-          var index = streams.users[username].length - 1;
-          while (index >= 0) {
-            var tweet = streams.users[username][index];
-            var $tweet = $('<div></div>');
-            $tweet.text('@' + tweet.user + ': ' + tweet.message + '. ' + tweet.created_at);
-            $tweet.prependTo($body);
-            index -= 1;
-          }
-        }
-
-        $('a').on('click', 'a', renderUserTimeline);
+        $('.tweet').on('click', 'a', renderUserTimeline);
 
         function notify() {
           alert('clicked');
