@@ -27,15 +27,20 @@
         });
 
         $('.home').on('click', 'a', renderUserTimeline);
-        $('.user-timeline').on('click', 'a', notify);
+        $('.user-timeline').on('click', '.back', function() {
+          $('.user-timeline').css('display', 'none');
+          $('.home').css('display', 'block');
+        });
 
         function renderUserTimeline() {
           $('.user-timeline').html('');
+          $('.home').css('display', 'none');
+          $('.user-timeline').css('display', 'block');
           var username = $(this).closest('.tweet').data('username');
           var index = streams.users[username].length - 1;
           while (index >= 0) {
             var tweet = streams.users[username][index];
-            $(renderTweet(tweet)).prependTo('.user-timeline');
+            $(renderTweet(tweet)).appendTo('.user-timeline');
             index -= 1;
           }
           $('<a href="#" class="back">Back to home</a>').prependTo('.user-timeline');
