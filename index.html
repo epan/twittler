@@ -23,8 +23,19 @@
           event.preventDefault();
         });
 
+        // Function to poll for new tweets
+        var loadNewTweets = function() {
+          if (streams.home.length > $('.home .tweets').length) {
+            renderHome()
+          }
+          setTimeout(loadNewTweets, 10000);
+        };
+
         // Initialize home view
         renderHome();
+
+        // Poll for new tweets
+        loadNewTweets();
 
         // Helper functions
         function renderHome() {
