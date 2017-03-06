@@ -12,18 +12,21 @@
         $body.html('');
 
         // Create structure for toggling content
-        ($body).append('<div class="home"></div>');
-        ($body).append('<div class="user-timeline"></div>');
+        $($body).append('<div class="home"></div>');
+        $($body).append('<div class="user-timeline"></div>');
 
-        renderHome();
-
+        // Event handlers
+        $('body').on('click', '.home a', renderUserTimeline);
+        $('body').on('click', '.user-timeline .tweet a', renderUserTimeline);
+        $('body').on('click', '.user-timeline .back', renderHome);
         $('a').on('click', function(event) {
           event.preventDefault();
         });
 
-        $('.home').on('click', 'a', renderUserTimeline);
-        $('.user-timeline').on('click', 'a', renderHome);
+        // Initialize home view
+        renderHome();
 
+        // Helper functions
         function renderHome() {
           $('.home').html('');
           $('.user-timeline').css('display', 'none');
@@ -62,6 +65,7 @@
           return $tweet;
         }
 
+        // Debug handler functions
         function notify() {
           alert('clicked');
         }
